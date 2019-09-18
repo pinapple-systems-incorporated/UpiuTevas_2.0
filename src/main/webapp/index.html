@@ -1,10 +1,31 @@
 <!DOCTYPE html>
+
+
 <html>
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>something something</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
-        <h1>Hello World!patuDSFnm rbinaujjjjj</h1>
+    <body onload="showAllIntegers()">
+        <div id="cia" style="width: 100px; height: 100px; background-color: red; "></div>
+        
+        <script>
+            function showAllIntegers() {
+                fetch("./spring/rest/", {method: "get"})
+                        .then(response => response.json()
+                        .then(response =>
+                    {
+                        var obj = response;
+                        var txt = "";
+                        for (x in obj)
+                        {
+                            txt += response[x].id;
+                        }
+                        document.getElementById("cia").innerHTML = txt;
+                    }
+                    ));
+            }
+        </script>
     </body>
 </html>
