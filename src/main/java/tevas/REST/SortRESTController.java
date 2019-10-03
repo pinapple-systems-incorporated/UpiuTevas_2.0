@@ -72,103 +72,123 @@ public class SortRESTController {
             list3 = list4;
             list4 = new ArrayList<>();
         }
+          String repetance = "";
+        if (params.isIsSleep()) {//jei reikia nakvynes
+            System.out.println("noriu nakvynes salyga patenkinta");
+            if ((params.isBed()
+                    && params.isForCampers()
+                    && params.isPublicCamping()
+                    && params.isPrivateCamping()
+                    && params.isCostsMoney())//jei viskas pazymeta
+                    || (!params.isBed()
+                    && !params.isForCampers()
+                    && !params.isPublicCamping()
+                    && !params.isPrivateCamping()
+                    && !params.isCostsMoney())) {//arba nepazymeta nieko
+                System.out.println("niekas nepazymeta arba pazymeta viskas");
+                //grazinti visus su nakvyne
+                for (int i = 0; i < list3.size(); i++) {
+                    Base baseUnit = list3.get(i);
+                    if (baseUnit.getSleepingId().getIsSleep()) {//jei yra nakvyne
+                        repetance+=","+list3.get(i).getId();
+                        list4.add(list3.get(i));
+                        System.out.println("list3.get("+i+"),base id "+list3.get(i).getId()+" isSleep");
+                    }
+                }
+                list3 = list4;
+                list4 = new ArrayList<>();
 
-//        if (params.isIsSleep()) {//jei reikia nakvynes
-//            if ((params.isBed()
-//                    && params.isForCampers()
-//                    && params.isPublicCamping()
-//                    && params.isPrivateCamping()
-//                    && params.isCostsMoney())//jei viskas pazymeta
-//                    || (!params.isBed()
-//                    && !params.isForCampers()
-//                    && !params.isPublicCamping()
-//                    && !params.isPrivateCamping()
-//                    && !params.isCostsMoney())) {//arba nepazymeta nieko
-//                //grazinti visus su nakvyne
-//                for (int i = 0; i < list3.size(); i++) {
-//                    Base baseUnit = list3.get(i);
-//                    if (!baseUnit.getSleepingId().getIsSleep()) {//jei nera monoRoute
-//                        list4.add(list3.get(i));
-//                    }
-//                }
-//                list3 = list4;
-//                list4 = new ArrayList<>();
-//
-//            } else {
-//                if (params.isBed()) {//jei pazymeta kad nori namo
-//                    for (int i = 0; i < list3.size(); i++) {
-//                        Base baseUnit = list3.get(i);
-//                        if (baseUnit.getSleepingId().getBed()) {//jei yra namas
-//                            list4.add(list3.get(i));
-//                        }
-//                    }
-//                    list3 = list4;
-//                    list4 = new ArrayList<>();
-//                }
-//
-//                if (params.isForCampers()) {//jei pazymeta kad nori kemperi pasistatyti
-//                    for (int i = 0; i < list3.size(); i++) {
-//                        Base baseUnit = list3.get(i);
-//                        if (baseUnit.getSleepingId().getForCampers()) {//jei yra camperems vieta
-//                            list4.add(list3.get(i));
-//                        }
-//                    }
-//                    list3 = list4;
-//                    list4 = new ArrayList<>();
-//                }
-//
-//                if (params.isPublicCamping()) {//jei pazymeta kad valstybinio kempingo
-//                    for (int i = 0; i < list3.size(); i++) {
-//                        Base baseUnit = list3.get(i);
-//                        if (baseUnit.getSleepingId().getPublicCamping()) {//jei yra kempingas
-//                            list4.add(list3.get(i));
-//                        }
-//                    }
-//                    list3 = list4;
-//                    list4 = new ArrayList<>();
-//                }
-//
-//                if (params.isPrivateCamping()) {//jei pazymeta kad nori privataus kempingo
-//                    if ((params.isCostsMoney() //ir pazymeta, kad nori mokamo ir nemokamo
-//                            && params.isIsFree())
-//                            || (!params.isCostsMoney()//arba nepazymeta mokamas ar nemokamas
-//                            && !params.isIsFree())) {
-//                        //do nothing
-//                    }
-//                    for (int i = 0; i < list3.size(); i++) {
-//                        Base baseUnit = list3.get(i);
-//                        if (baseUnit.getSleepingId().getPrivateCamping()) {//jei yra privatus kempingas
-//                            list4.add(list3.get(i));
-//                        }
-//                    }
-//                    list3 = list4;
-//                    list4 = new ArrayList<>();
-//                }
-//                
-//                  if (params.isCostsMoney()&&!params.isIsFree()) {//jei pazymeta kad nori mokamo kempingo ir nepazymeta, kad nori nemokamo kempingo
-//                    for (int i = 0; i < list3.size(); i++) {
-//                        Base baseUnit = list3.get(i);
-//                        if (baseUnit.getSleepingId().getCostsMoney()) {//jei yra mokamas kempingas
-//                            list4.add(list3.get(i));
-//                        }
-//                    }
-//                    list3 = list4;
-//                    list4 = new ArrayList<>();
-//                }
-//                  
-//                   if (params.isIsFree()&&!params.isCostsMoney()) {//jei pazymeta kad nori nemokamo kempingo ir nepazymeta, kad nori mokamo kempingo
-//                    for (int i = 0; i < list3.size(); i++) {
-//                        Base baseUnit = list3.get(i);
-//                        if (!baseUnit.getSleepingId().getCostsMoney()) {//jei yra nemokamas kempingas
-//                            list4.add(list3.get(i));
-//                        }
-//                    }
-//                    list3 = list4;
-//                    list4 = new ArrayList<>();
-//                }
-//
-//            }
- //       }
+            } else {
+                if (params.isBed()) {//jei pazymeta kad nori namo
+                    for (int i = 0; i < list3.size(); i++) {
+                        Base baseUnit = list3.get(i);
+                        if (baseUnit.getSleepingId().getBed()) {//jei yra namas
+                            if (!repetance.contains(list3.get(i).getId()+"")) {
+                                
+                            
+                            list4.add(list3.get(i));
+                            }
+                        }
+                    }
+                    list3 = list4;
+                    list4 = new ArrayList<>();
+                }
+
+                if (params.isForCampers()) {//jei pazymeta kad nori kemperi pasistatyti
+                    for (int i = 0; i < list3.size(); i++) {
+                        Base baseUnit = list3.get(i);
+                        if (baseUnit.getSleepingId().getForCampers()) {//jei yra camperems vieta
+                            
+                            if (!repetance.contains(list3.get(i).getId()+"")) {
+                                list4.add(list3.get(i));
+                            }
+                        }
+                    }
+                    list3 = list4;
+                    list4 = new ArrayList<>();
+                }
+
+                if (params.isPublicCamping()) {//jei pazymeta kad valstybinio kempingo
+                    for (int i = 0; i < list3.size(); i++) {
+                        Base baseUnit = list3.get(i);
+                        if (baseUnit.getSleepingId().getPublicCamping()) {//jei yra kempingas
+                          if (!repetance.contains(list3.get(i).getId()+"")) {
+                              list4.add(list3.get(i));
+                          }
+                        }
+                    }
+                    list3 = list4;
+                    list4 = new ArrayList<>();
+                }
+
+                if (params.isPrivateCamping()) {//jei pazymeta kad nori privataus kempingo
+                    if ((params.isCostsMoney() //ir pazymeta, kad nori mokamo ir nemokamo
+                            && params.isIsFree())
+                            || (!params.isCostsMoney()//arba nepazymeta mokamas ar nemokamas
+                            && !params.isIsFree())) {
+                        //do nothing
+                    }
+                    for (int i = 0; i < list3.size(); i++) {
+                        Base baseUnit = list3.get(i);
+                        if (baseUnit.getSleepingId().getPrivateCamping()) {//jei yra privatus kempingas
+                           
+                            if (!repetance.contains(list3.get(i).getId()+"")) {
+                                list4.add(list3.get(i));
+                            }
+                        }
+                    }
+                    list3 = list4;
+                    list4 = new ArrayList<>();
+                }
+                
+                  if (params.isCostsMoney()&&!params.isIsFree()) {//jei pazymeta kad nori mokamo kempingo ir nepazymeta, kad nori nemokamo kempingo
+                    for (int i = 0; i < list3.size(); i++) {
+                        Base baseUnit = list3.get(i);
+                        if (baseUnit.getSleepingId().getCostsMoney()) {//jei yra mokamas kempingas
+                           if (!repetance.contains(list3.get(i).getId()+"")) {
+                               list4.add(list3.get(i));
+                           }
+                        }
+                    }
+                    list3 = list4;
+                    list4 = new ArrayList<>();
+                }
+                  
+                   if (params.isIsFree()&&!params.isCostsMoney()) {//jei pazymeta kad nori nemokamo kempingo ir nepazymeta, kad nori mokamo kempingo
+                    for (int i = 0; i < list3.size(); i++) {
+                        Base baseUnit = list3.get(i);
+                        if (!baseUnit.getSleepingId().getCostsMoney()) {//jei yra nemokamas kempingas
+                          if (!repetance.contains(list3.get(i).getId()+"")) {
+                                list4.add(list3.get(i));
+                          }
+                        }
+                    }
+                    list3 = list4;
+                    list4 = new ArrayList<>();
+                }
+
+            }
+        }
      
         return list3;
     }
