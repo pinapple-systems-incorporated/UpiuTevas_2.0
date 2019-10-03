@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body onload="javascript:showAll()">
+        p raide
+
+        <div id="cia" style="font-size: 10px"> </div>
+
+        <a href="http://localhost:8084/UpiuTevas_JS_servertesting/spring/ten/">go to jsp</a>
+        </br></br></br>
+        <select id="rivers"  onchange="sort()">
+            <option value="0" >visos upes</option>
+            <option value="Neris">Neris</option>
+            <option value="Nemunas">Nemunas</option>
+            <option value="Mituva">Mituva</option>
+            <option value="Ūla">Ūla</option>
+            <option value="Šventoji">Šventoji</option>
+            <option value="Merkys">Merkys</option>
+        </select></br>
+        Noriu plaukti daugiau nei vienu vandens telkiniu<input type="checkbox" id="moreRivers" onchange="sort()"> <br></br>
+
+        Nakvynės galimybė</br>
+        As noriu nakvoti<input type="checkbox" id="isSleep" onchange="sort()"> <br>
+        Nameliai<input type="checkbox" id="bed" onchange="sort()"> <br>
+        Valstybinis kempingas<input type="checkbox" id="publicCamping" onchange="sort()"> <br>
+        Privatus Kempingas<input type="checkbox" id="privateCamping" onchange="sort()"> <br>
+        --mokamas<input type="checkbox" id="costsMoney" onchange="sort()"> <br>
+        --nemokamas<input type="checkbox" id="isFree" onchange="sort()"> <br></br>
+        kemperiu aikstele<input type="checkbox" id="forCampers" onchange="sort()"> <br>
+        Prekyvietės</br>
+        --Prieš<input type="checkbox" id="shop1" onchange="sort()"> <br>
+        --Plaukiant<input type="checkbox" id="shop2" onchange="sort()"> <br>
+        --Atplaukus<input type="checkbox" id="shop3" onchange="sort()"> <br></br>
+
+        Parkingas</br>
+        --Saugomas<input type="checkbox" id="parking1" onchange="sort()"> <br>
+        --Nesaugomas<input type="checkbox" id="parking2" onchange="sort()"> <br>
+        --Marsruto pradzioje<input type="checkbox" id="parking3" onchange="sort()"> <br>
+        --Marsruto vidury(nakvynes vietoje plaukiant ilgiau nei diena)<input type="checkbox" id="parking4" onchange="sort()"> <br>
+        --Marsruto pabaigoje<input type="checkbox" id="parking5" onchange="sort()"> <br>
+
+        <script>
+            function sort() {
+                var rivers = document.getElementById('rivers').value;
+                var isSleep = document.getElementById('isSleep').checked;
+                var moreRivers = document.getElementById('moreRivers').checked;
+                var bed = document.getElementById('bed').checked;
+                var forCampers = document.getElementById('forCampers').checked;
+                var costsMoney = document.getElementById('costsMoney').checked;
+                var isFree = document.getElementById('isFree').checked;
+                var privateCamping = document.getElementById('privateCamping').checked;
+                var publicCamping = document.getElementById('publicCamping').checked;
+                var shop1 = document.getElementById('shop1').checked;
+                var shop2 = document.getElementById('shop2').checked;
+                var shop3 = document.getElementById('shop3').checked;
+                var parking1 = document.getElementById('parking1').checked;
+                var parking2 = document.getElementById('parking2').checked;
+                var parking3 = document.getElementById('parking3').checked;
+                var parking4 = document.getElementById('parking4').checked;
+                var parking5 = document.getElementById('parking5').checked;
+                var myObj = {
+                    rivers,
+                    bed,
+                    forCampers,
+                    costsMoney,
+                    isFree,
+                    privateCamping,
+                    publicCamping,
+                    isSleep,
+                    shop1,
+                    shop2,
+                    shop3,
+                    parking1,
+                    parking2,
+                    parking3,
+                    parking4,
+                    parking5,
+                    moreRivers
+                };
+
+                console.log("sortas");
+
+
+                const options = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(myObj)
+                };
+                fetch("./spring/sort/", options).then(response => response.json()).then(response => {
+                    console.log(response);
+
+                    let obj = response;
+                    let txt = "";
+                    for (x in obj) {
+
+                        txt += "<div>" + obj[x].wbcId.wb1;
+                        if (obj[x].wbcId.wb2 !== null) {
+                            txt += ", " + obj[x].wbcId.wb2;
+                        }
+                        if (obj[x].wbcId.wb3 !== null) {
+                            txt += ", " + obj[x].wbcId.wb3;
+                        }
+                        if (obj[x].wbcId.wb4 !== null) {
+                            txt += ", " + obj[x].wbcId.wb4;
+                        }
+                        if (obj[x].wbcId.wb5 !== null) {
+                            txt += ", " + obj[x].wbcId.wb5;
+                        }
+                        txt += "</div>";
+                    }
+
+                    document.getElementById("cia").innerHTML = txt;
+                });
+            }
+
+
+            function showAll() {
+                fetch("./spring/sort/all/", {
+                    method: "get",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify()
+                }).then(response => response.json()).then(response => {
+                    console.log(response);
+
+                    let obj = response;
+                    let txt = "";
+                    for (x in obj) {
+                          txt += "<div>" + obj[x].wbcId.wb1;
+                        if (obj[x].wbcId.wb2 !== null) {
+                            txt += ", " + obj[x].wbcId.wb2;
+                        }
+                        if (obj[x].wbcId.wb3 !== null) {
+                            txt += ", " + obj[x].wbcId.wb3;
+                        }
+                        if (obj[x].wbcId.wb4 !== null) {
+                            txt += ", " + obj[x].wbcId.wb4;
+                        }
+                        if (obj[x].wbcId.wb5 !== null) {
+                            txt += ", " + obj[x].wbcId.wb5;
+                        }
+                        txt += "</div>";
+                    }
+
+                    document.getElementById("cia").innerHTML = txt;
+                });
+            }
+//            
+//function showContact(personId){
+//   fetch("../rest/address/" + personId, {
+//                    method: "POST",
+//                }).then(response => response.json()).then(response => {
+//                    var obj = response;
+//                    var txt = "";
+//                    txt += `<table border='1'>`;
+//                    for (x in obj) {
+//                        txt += "<tr><td>" + obj[x].type + "</td>";
+//                        txt += "<td>" + obj[x].contact + "</td>";
+//                        txt += " <td><button onclick=editContact(" + obj[x].id + "," + personId + ") >edit</button></td>";
+//                        txt += " <td><button onclick=delContact("+obj[x].id+")>delete</button></td>";
+//                        txt += " <td><button onclick=showAddress(" + obj[x].id + ") >addresses</button></td></tr>";
+//                    }
+//                    txt += "</table>";
+//                    if (txt === `<table border='1'><div type="hidden" id="` + personId + `"`) {
+//                        txt = "Šis Žmogus neturi adresų.";
+//                    }
+//                    txt += `<button onclick="showAll()">back</button>
+//                            <button onclick="addContact(`+personId+`)">add new</button>
+//                            <button onclick=showContact(` + personId + `)>REEEEEEEEEEEE</button>`;
+//                   
+//                    document.getElementById("cia").innerHTML = txt;
+//                });
+//
+//}
+//
+//  function editContact(addressId, personId) {
+//                fetch("../rest/contact/" + personId + "/" + addressId, {
+//                    method: "GET",
+//                }).then(response => response.json()).then(response => {
+//                    console.log(response);
+//                    var obj = response;
+//                    var txt = `type <input id="type" value="` + obj.type + `"><br>
+//        contact <input id="contact" value="` + obj.contact + `"><br>
+//        <button onclick="updateContact(` + addressId+`,`+personId + `)">update</button>
+//        <button onclick="showContact(` + personId + `)">back</button>`;
+//                    document.getElementById("cia").innerHTML = txt;
+//                });
+//            }
+//            function updateContact(addressId,personId) {
+//                let  type = document.getElementById("type").value;
+//                let  contact = document.getElementById("contact").value;
+//              
+//                let a = {
+//                    type:type,
+//                    contact:contact,
+//                    id:addressId,
+//                    person:{
+//                        id=personId
+//                    }
+//                };
+//                fetch("..rest/contact/", {
+//                    method: "POST",
+//                    headers: {
+//                        "Accept": "application/json",
+//                        "Content-Type": "application/json"
+//                    },
+//                    body: JSON.stringify(a)
+//                }).then(response => response.json()).then(response => {
+//                    console.log(response);
+//                });
+//                showContact(personId);
+//            }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//  function addContact(personId) {
+//          var txt = `type <input id="type" value=""><br>
+//        contact <input id="contact" value=""><br>
+//        <button onclick="addContact1(` + personId + `)">add</button>
+//        <button onclick="showContact(` + personId + `)">back</button>`;
+//                    document.getElementById("cia").innerHTML = txt;
+//            }
+//            function addContact1(personId){
+//                
+//                let  type = document.getElementById("type").value;
+//                let  contact = document.getElementById("contact").value;
+//                let a = {
+//                    type:type ,
+//                    contact:contact,
+//                     person:{
+//                        id=personId
+//                    }
+//                };
+//                console.log(personId+" person id");
+//               
+//                fetch("../rest/contact/", {
+//                    method: "POST",
+//                    headers: {
+//                        "Accept": "application/json",
+//                        "Content-Type": "application/json"
+//                    },
+//                    body: JSON.stringify(a)
+//                }).then(response => response.json()).then(response => {
+//
+//                    console.log(response);
+//                });
+//                showContact(personId);
+//            }
+//
+//   function delContact(personId){
+//                  fetch("../rest/contact/" + personId, {
+//                    method: "delete"
+//                }).then(response => response.json()).then(response => {
+//                    console.log(response);
+//                });
+//                showContact(personId);
+//            }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//            function showAddresses(personId) {
+//                fetch("../rest/address/" + personId, {
+//                    method: "GET",
+//                }).then(response => response.json()).then(response => {
+//                   
+//                    var obj = response;
+//                    var txt = "";
+//                    txt += `<table border='1'>`;
+//                    for (x in obj) {
+//                        txt += "<tr><td>" + obj[x].address + "</td>";
+//                        txt += "<td>" + obj[x].postalCode + "</td>";
+//                        txt += "<td>" + obj[x].city + "</td>";
+//                        txt += " <td><button onclick=editAddress(" + obj[x].id + "," + personId + ") >edit</button></td>";
+//                        txt += " <td><button onclick=delAddress("+obj[x].id+")>delete</button></td>";
+//                        txt += " <td><button onclick=contact(" + obj[x].id + ") >contacts</button></td></tr>";
+//                    }
+//                    txt += "</table>";
+//                    if (txt === `<table border='1'><div type="hidden" id="` + personId + `"></div>`) {
+//                        txt = "Šis Žmogus neturi adresų.";
+//                    }
+//                    txt += `<button onclick="showAll()">back</button>
+//                            <button onclick="addAddress(`+personId+`)">add new</button>
+//                            <button onclick=showAddresses(` + personId + `)>REEEEEEEEEEEE</button>`;
+//                   
+//                    document.getElementById("cia").innerHTML = txt;
+//                });
+//
+//            }
+//            function delAddress(personId){
+//                  fetch("../rest/address/" + personId, {
+//                    method: "delete"
+//                }).then(response => response.json()).then(response => {
+//                    console.log(response);
+//                });
+//                showAddresses(personId);
+//            }
+//              function addAddress(personId) {
+//          var txt = `name <input id="address" value=""><br>
+//        surname <input id="postalCode" value=""><br>
+//        salary    <input id="city" value=""><br>
+//        <button onclick="addAddress1(` + personId + `)">add</button>
+//        <button onclick="showAddresses(` + personId + `)">back</button>`;
+//                    document.getElementById("cia").innerHTML = txt;
+//            }
+//            function addAddress1(personId){
+//                
+//                let  postalCode = document.getElementById("postalCode").value;
+//                let  city = document.getElementById("city").value;
+//                let  address = document.getElementById("address").value;
+//                let a = {
+//                    address: address,
+//                    postalCode: postalCode,
+//                    city: city,
+//                    person:{
+//                        id:personId
+//                    }
+//                };
+//                console.log(personId+" person id");
+//               
+//                fetch("../rest/address/", {
+//                    method: "POST",
+//                    headers: {
+//                        "Accept": "application/json",
+//                        "Content-Type": "application/json"
+//                    },
+//                    body: JSON.stringify(a)
+//                }).then(response => response.json()).then(response => {
+//
+//                    console.log(response);
+//                });
+//                showAddresses(personId);
+//            }
+//            function editAddress(addressId, personId) {
+//                fetch("../rest/address/" + personId + "/" + addressId, {
+//                    method: "GET",
+//                }).then(response => response.json()).then(response => {
+//                    console.log(response);
+//                    var obj = response;
+//                    var txt = `address <input id="address" value="` + obj.address + `"><br>
+//        postalCode <input id="postalCode" value="` + obj.postalCode + `"><br>
+//        city    <input id="city" value="` + obj.city + `"><br>
+//        <button onclick="updateAddress(` + addressId+`,`+personId + `)">update</button>
+//        <button onclick="showAddresses(` + personId + `)">back</button>`;
+//                    document.getElementById("cia").innerHTML = txt;
+//                });
+//            }
+//            function updateAddress(addressId,personId) {
+//                let  address = document.getElementById("address").value;
+//                let  postalCode = document.getElementById("postalCode").value;
+//                let  city = document.getElementById("city").value;
+//              
+//                let a = {
+//                    address: address,
+//                    postalCode: postalCode,
+//                    city: city,
+//                    id:addressId,
+//                    person:{
+//                        id:personId
+//                    }
+//                    
+//                };
+//                fetch("../rest/address/" , {
+//                    method: "POST",
+//                    headers: {
+//                        "Accept": "application/json",
+//                        "Content-Type": "application/json"
+//                    },
+//                    body: JSON.stringify(a)
+//                }).then(response => response.json()).then(response => {
+//                    console.log(response);
+//                });
+//                showAddresses(personId);
+//            }
+//          
+//            function del(id) {
+//                fetch("../rest/person/" + id, {
+//                    method: "delete"
+//                }).then(response => {
+//                    console.log(response);
+//                });
+//                showAll();
+//            }
+//            function add1() {
+//                var txt = `
+//        name <input id="firstName" value=""><br>
+//        surname <input id="lastName" value=""><br>
+//        salary    <input id="salary" value=""><br>
+//        birthDate<input id="birthDate" type="date" value=""><br>
+//        <button onclick="showAll()">back</button>
+//        <button onclick="add()">add</button>`
+//                document.getElementById("cia").innerHTML = txt;
+//            }
+//            function add() {
+//
+//
+//                let  fn = document.getElementById("firstName").value;
+//                let  ln = document.getElementById("lastName").value;
+//                let  s = document.getElementById("salary").value;
+//                let  dt = document.getElementById("birthDate").value;
+//                let p = {
+//                    firstName: fn,
+//                    lastName: ln,
+//                    salary: parseFloat(s),
+//                    birthDate: dt
+//                };
+//                document.getElementById("cia").innerHTML = p.firstName;
+//                fetch("../rest/person/", {
+//                    method: "post",
+//                    headers: {
+//                        "Accept": "application/json",
+//                        "Content-Type": "application/json"
+//                    },
+//                    body: JSON.stringify(p)
+//                }).then(response => response.json()).then(response => {
+//
+//                    console.log(response);
+//                });
+//                showAll();
+//            }
+//
+//            function edit1(id) {
+//
+//                fetch("../rest/person/" + id, {
+//                    method: "GET",
+//                }).then(response => response.json()).then(response => {
+//                    console.log(response);
+//                    var obj = response;
+//                    var txt = `name <input id="firstName" value="` + obj.firstName + `"><br>
+//        surname <input id="lastName" value="` + obj.lastName + `"><br>
+//        salary    <input id="salary" value="` + obj.salary + `"><br>
+//        birthDate<input id="birthDate" type="date" value="` + obj.birthDate + `"><br>
+//        <button onclick="update(` + obj.id + `)">update</button>
+//        <button onclick="showAll()">back</button>`;
+//                    document.getElementById("cia").innerHTML = txt;
+//                });
+//            }
+//            function update(id) {
+//                let  fn = document.getElementById("firstName").value;
+//                let  ln = document.getElementById("lastName").value;
+//                let  s = document.getElementById("salary").value;
+//                // let id = document.getElementById("id").value;
+//                let  dt = document.getElementById("birthDate").value;
+//                let p = {
+//                    firstName: fn,
+//                    lastName: ln,
+//                    salary: parseFloat(s),
+//                    id: id,
+//                    birthDate: dt
+//                };
+//                fetch("../rest/person/", {
+//                    method: "post",
+//                    headers: {
+//                        "Accept": "application/json",
+//                        "Content-Type": "application/json"
+//                    },
+//                    body: JSON.stringify(p)
+//                }).then(response => response.json()).then(response => {
+//                    console.log(response);
+//                });
+//                showAll();
+//            }
+
+
+        </script>
+    </body>
+</html>
