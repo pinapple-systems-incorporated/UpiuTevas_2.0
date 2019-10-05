@@ -22,12 +22,22 @@ public class Tikrinam {
     private boolean shop1;
     private boolean shop2;
     private boolean shop3;
-    private boolean parking1;
-    private boolean parking2;
-    private boolean parking3;
-    private boolean parking4;
-    private boolean parking5;
+    private boolean parkingSecured;
+    private boolean parkingNotSecured;
+    private boolean parkingStart;
+    private boolean parkingMiddle;
+    private boolean parkingEnd;
     private boolean moreRivers;
+    private boolean isShop;
+    private boolean isParking;
+
+    public boolean isIsParking() {
+        return isParking;
+    }
+
+    public boolean isIsShop() {
+        return isShop;
+    }
 
     public String getRivers() {
         return rivers;
@@ -73,25 +83,26 @@ public class Tikrinam {
         return shop3;
     }
 
-    public boolean isParking1() {
-        return parking1;
+    public boolean isParkingSecured() {
+        return parkingSecured;
     }
 
-    public boolean isParking2() {
-        return parking2;
+    public boolean isParkingNotSecured() {
+        return parkingNotSecured;
     }
 
-    public boolean isParking3() {
-        return parking3;
+    public boolean isParkingStart() {
+        return parkingStart;
     }
 
-    public boolean isParking4() {
-        return parking4;
+    public boolean isParkingMiddle() {
+        return parkingMiddle;
     }
 
-    public boolean isParking5() {
-        return parking5;
+    public boolean isParkingEnd() {
+        return parkingEnd;
     }
+
 
     public boolean isMoreRivers() {
         return moreRivers;
@@ -99,11 +110,9 @@ public class Tikrinam {
 
     @Override
     public String toString() {
-        return "Tikrinam{" + "rivers=" + rivers + ", bed=" + bed + ", forCampers=" + forCampers + ", costsMoney=" + costsMoney + ", isFree=" + isFree + ", privateCamping=" + privateCamping + ", publicCamping=" + publicCamping + ", isSleep=" + isSleep + ", shop1=" + shop1 + ", shop2=" + shop2 + ", shop3=" + shop3 + ", parking1=" + parking1 + ", parking2=" + parking2 + ", parking3=" + parking3 + ", parking4=" + parking4 + ", parking5=" + parking5 + ", moreRivers=" + moreRivers + '}';
+        return "Tikrinam{" + "rivers=" + rivers + ", bed=" + bed + ", forCampers=" + forCampers + ", costsMoney=" + costsMoney + ", isFree=" + isFree + ", privateCamping=" + privateCamping + ", publicCamping=" + publicCamping + ", isSleep=" + isSleep + ", shop1=" + shop1 + ", shop2=" + shop2 + ", shop3=" + shop3 + ", parkingSecured=" + parkingSecured + ", parkingNotSecured=" + parkingNotSecured + ", parkingStart=" + parkingStart + ", parkingMiddle=" + parkingMiddle + ", parkingEnd=" + parkingEnd + ", moreRivers=" + moreRivers + ", isShop=" + isShop + ", isParking=" + isParking + '}';
     }
 
+    
 
-   
-
-   
 }

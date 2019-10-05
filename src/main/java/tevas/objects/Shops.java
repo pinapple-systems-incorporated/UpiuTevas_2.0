@@ -28,6 +28,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Shops.findAll", query = "SELECT s FROM Shops s")
     , @NamedQuery(name = "Shops.findById", query = "SELECT s FROM Shops s WHERE s.id = :id")
+    , @NamedQuery(name = "Shops.findByIsShop", query = "SELECT s FROM Shops s WHERE s.isShop = :isShop")
     , @NamedQuery(name = "Shops.findByShopBefore", query = "SELECT s FROM Shops s WHERE s.shopBefore = :shopBefore")
     , @NamedQuery(name = "Shops.findByShopOnRoad", query = "SELECT s FROM Shops s WHERE s.shopOnRoad = :shopOnRoad")
     , @NamedQuery(name = "Shops.findByShopAfter", query = "SELECT s FROM Shops s WHERE s.shopAfter = :shopAfter")})
@@ -39,6 +40,8 @@ public class Shops implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "isShop")
+    private Boolean isShop;
     @Column(name = "shop_before")
     private Boolean shopBefore;
     @Column(name = "shop_on_road")
@@ -64,6 +67,14 @@ public class Shops implements Serializable {
         this.id = id;
     }
 
+    public Boolean getIsShop() {
+        return isShop;
+    }
+
+    public void setIsShop(Boolean isShop) {
+        this.isShop = isShop;
+    }
+
     public Boolean getShopBefore() {
         return shopBefore;
     }
@@ -86,14 +97,6 @@ public class Shops implements Serializable {
 
     public void setShopAfter(Boolean shopAfter) {
         this.shopAfter = shopAfter;
-    }
-
-    public List<Base> getBaseList() {
-        return baseList;
-    }
-
-    public void setBaseList(List<Base> baseList) {
-        this.baseList = baseList;
     }
 
     @Override

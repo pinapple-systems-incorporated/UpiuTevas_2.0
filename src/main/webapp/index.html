@@ -30,23 +30,25 @@ and open the template in the editor.
 
         Nakvynės galimybė</br>
         As noriu nakvoti<input type="checkbox" id="isSleep" onchange="sort()"> <br>
-        Nameliai<input type="checkbox" id="bed" onchange="sort()"> <br>
-        Valstybinis kempingas<input type="checkbox" id="publicCamping" onchange="sort()"> <br>
-        Privatus Kempingas<input type="checkbox" id="privateCamping" onchange="sort()"> <br>
-        --mokamas<input type="checkbox" id="costsMoney" onchange="sort()"> <br>
-        --nemokamas<input type="checkbox" id="isFree" onchange="sort()"> <br></br>
-        kemperiu aikstele<input type="checkbox" id="forCampers" onchange="sort()"> <br>
+        --Nameliai<input type="checkbox" id="bed" onchange="sort()"> <br>
+        --Valstybinis kempingas<input type="checkbox" id="publicCamping" onchange="sort()"> <br>
+        --Privatus Kempingas<input type="checkbox" id="privateCamping" onchange="sort()"> <br>
+        ----mokamas<input type="checkbox" id="costsMoney" onchange="sort()"> <br>
+        ----nemokamas<input type="checkbox" id="isFree" onchange="sort()"> <br>
+        --kemperiu aikstele<input type="checkbox" id="forCampers" onchange="sort()"> <br><br>
         Prekyvietės</br>
+         Noriu apsipirkti<input type="checkbox" id="isShop" onchange="sort()"> <br>
         --Prieš<input type="checkbox" id="shop1" onchange="sort()"> <br>
         --Plaukiant<input type="checkbox" id="shop2" onchange="sort()"> <br>
         --Atplaukus<input type="checkbox" id="shop3" onchange="sort()"> <br></br>
 
         Parkingas</br>
-        --Saugomas<input type="checkbox" id="parking1" onchange="sort()"> <br>
-        --Nesaugomas<input type="checkbox" id="parking2" onchange="sort()"> <br>
-        --Marsruto pradzioje<input type="checkbox" id="parking3" onchange="sort()"> <br>
-        --Marsruto vidury(nakvynes vietoje plaukiant ilgiau nei diena)<input type="checkbox" id="parking4" onchange="sort()"> <br>
-        --Marsruto pabaigoje<input type="checkbox" id="parking5" onchange="sort()"> <br>
+        As noriu parkingo<input type="checkbox" id="isParking" onchange="sort()"> <br>
+        --Saugomas<input type="checkbox" id="parkingSecured" onchange="sort()"> <br>
+        --Nesaugomas<input type="checkbox" id="parkingNotSecured" onchange="sort()"> <br>
+        --Marsruto pradzioje<input type="checkbox" id="parkingStart" onchange="sort()"> <br>
+        --Marsruto vidury(nakvynes vietoje plaukiant ilgiau nei diena)<input type="checkbox" id="parkingMiddle" onchange="sort()"> <br>
+        --Marsruto pabaigoje<input type="checkbox" id="parkingEnd" onchange="sort()"> <br>
 
         <script>
             function sort() {
@@ -62,11 +64,13 @@ and open the template in the editor.
                 var shop1 = document.getElementById('shop1').checked;
                 var shop2 = document.getElementById('shop2').checked;
                 var shop3 = document.getElementById('shop3').checked;
-                var parking1 = document.getElementById('parking1').checked;
-                var parking2 = document.getElementById('parking2').checked;
-                var parking3 = document.getElementById('parking3').checked;
-                var parking4 = document.getElementById('parking4').checked;
-                var parking5 = document.getElementById('parking5').checked;
+                var parkingSecured = document.getElementById('parkingSecured').checked;
+                var parkingNotSecured = document.getElementById('parkingNotSecured').checked;
+                var parkingStart = document.getElementById('parkingStart').checked;
+                var parkingMiddle = document.getElementById('parkingMiddle').checked;
+                var parkingEnd = document.getElementById('parkingEnd').checked;
+                  var isShop = document.getElementById('isShop').checked;
+                   var isParking = document.getElementById('isParking').checked;
                 var myObj = {
                     rivers,
                     bed,
@@ -79,12 +83,14 @@ and open the template in the editor.
                     shop1,
                     shop2,
                     shop3,
-                    parking1,
-                    parking2,
-                    parking3,
-                    parking4,
-                    parking5,
-                    moreRivers
+                    parkingSecured,
+                    parkingNotSecured,
+                    parkingStart,
+                    parkingMiddle,
+                    parkingEnd,
+                    moreRivers,
+                    isShop,
+                    isParking
                 };
 
                 console.log("sortas");

@@ -28,6 +28,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "CarParking.findAll", query = "SELECT c FROM CarParking c")
     , @NamedQuery(name = "CarParking.findById", query = "SELECT c FROM CarParking c WHERE c.id = :id")
+    , @NamedQuery(name = "CarParking.findByIsParking", query = "SELECT c FROM CarParking c WHERE c.isParking = :isParking")
     , @NamedQuery(name = "CarParking.findByParkingAtStart", query = "SELECT c FROM CarParking c WHERE c.parkingAtStart = :parkingAtStart")
     , @NamedQuery(name = "CarParking.findByParkingAtMid", query = "SELECT c FROM CarParking c WHERE c.parkingAtMid = :parkingAtMid")
     , @NamedQuery(name = "CarParking.findByParkingAtEnd", query = "SELECT c FROM CarParking c WHERE c.parkingAtEnd = :parkingAtEnd")
@@ -41,6 +42,8 @@ public class CarParking implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "isParking")
+    private Boolean isParking;
     @Column(name = "parking_at_start")
     private Boolean parkingAtStart;
     @Column(name = "parking_at_mid")
@@ -51,7 +54,7 @@ public class CarParking implements Serializable {
     private Boolean safety;
     @Column(name = "arrange_by_phone")
     private Boolean arrangeByPhone;
-    @JsonIgnore
+      @JsonIgnore
     @OneToMany(mappedBy = "parkingId")
     private List<Base> baseList;
 
@@ -68,6 +71,14 @@ public class CarParking implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Boolean getIsParking() {
+        return isParking;
+    }
+
+    public void setIsParking(Boolean isParking) {
+        this.isParking = isParking;
     }
 
     public Boolean getParkingAtStart() {
@@ -108,14 +119,6 @@ public class CarParking implements Serializable {
 
     public void setArrangeByPhone(Boolean arrangeByPhone) {
         this.arrangeByPhone = arrangeByPhone;
-    }
-
-    public List<Base> getBaseList() {
-        return baseList;
-    }
-
-    public void setBaseList(List<Base> baseList) {
-        this.baseList = baseList;
     }
 
     @Override
